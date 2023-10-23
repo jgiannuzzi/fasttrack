@@ -76,7 +76,7 @@ func NewSqliteDBInstance(
 	db.closers = append(db.closers, sourceDB)
 	sourceDB.SetMaxIdleConns(1)
 	sourceDB.SetMaxOpenConns(1)
-	sourceDB.SetConnMaxIdleTime(0)
+	sourceDB.SetConnMaxIdleTime(5 * time.Second)
 	sourceDB.SetConnMaxLifetime(0)
 	sourceConn = sqlite.Dialector{
 		Conn: sourceDB,
@@ -92,6 +92,7 @@ func NewSqliteDBInstance(
 		return nil, eris.Wrap(err, "failed to connect to database")
 	}
 	db.closers = append(db.closers, replicaDB)
+	replicaDB.SetConnMaxIdleTime(1 * time.Second)
 	replicaDB.SetMaxOpenConns(poolMax)
 	replicaConn = sqlite.Dialector{
 		Conn: replicaDB,
