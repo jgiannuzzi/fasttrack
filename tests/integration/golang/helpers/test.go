@@ -56,7 +56,7 @@ func (s *BaseTestSuite) setup() {
 	if !s.SkipCreateDefaultNamespace {
 		var err error
 		s.DefaultNamespace, err = s.NamespaceFixtures.CreateNamespace(context.Background(), &models.Namespace{
-			Code:                "default",
+			Code:                models.DefaultNamespaceCode,
 			DefaultExperimentID: common.GetPointer(int32(0)),
 		})
 		s.Require().Nil(err)

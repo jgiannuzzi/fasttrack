@@ -8,6 +8,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/G-Research/fasttrackml/pkg/api/mlflow/api"
+	"github.com/G-Research/fasttrackml/pkg/api/mlflow/dao/models"
 	"github.com/G-Research/fasttrackml/tests/integration/golang/helpers"
 )
 
@@ -37,7 +38,7 @@ func (s *NamespaceTestSuite) Test_Error() {
 		{
 			name:      "RequestNotExistingDefaultNamespaceExplicitly",
 			error:     api.NewResourceDoesNotExistError("unable to find namespace with code: default"),
-			namespace: "default",
+			namespace: models.DefaultNamespaceCode,
 		},
 		{
 			name:  "RequestNotExistingDefaultNamespaceImplicitly",

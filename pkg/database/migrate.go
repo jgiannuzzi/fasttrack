@@ -13,6 +13,7 @@ import (
 	"gorm.io/gorm/logger"
 
 	"github.com/G-Research/fasttrackml/pkg/api/mlflow/common"
+	"github.com/G-Research/fasttrackml/pkg/api/mlflow/dao/models"
 	"github.com/G-Research/fasttrackml/pkg/database/migrations/v_0001"
 	"github.com/G-Research/fasttrackml/pkg/database/migrations/v_0002"
 	"github.com/G-Research/fasttrackml/pkg/database/migrations/v_0003"
@@ -212,13 +213,13 @@ func CheckAndMigrateDB(migrate bool, db *gorm.DB) error {
 // CreateDefaultNamespace creates the default namespace if it doesn't exist.
 func CreateDefaultNamespace(db *gorm.DB) error {
 	if tx := db.First(&Namespace{
-		Code: "default",
+		Code: models.DefaultNamespaceCode,
 	}); tx.Error != nil {
 		if errors.Is(tx.Error, gorm.ErrRecordNotFound) {
 			log.Info("Creating default namespace")
 			var exp int32 = 0
 			ns := Namespace{
-				Code:                "default",
+				Code:                models.DefaultNamespaceCode,
 				Description:         "Default namespace",
 				DefaultExperimentID: &exp,
 			}
@@ -248,7 +249,7 @@ func CreateDefaultExperiment(db *gorm.DB, defaultArtifactRoot string) error {
 	if err := db.First(&Experiment{}, 0).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			log.Info("Creating default experiment")
-			ns := Namespace{Code: "default"}
+			ns := Namespace{Code: models.DefaultNamespaceCode}
 			if err = db.Find(&ns).Error; err != nil {
 				return fmt.Errorf("error finding default namespace: %s", err)
 			}

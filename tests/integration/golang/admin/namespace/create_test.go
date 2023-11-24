@@ -10,6 +10,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/stretchr/testify/suite"
 
+	"github.com/G-Research/fasttrackml/pkg/api/mlflow/dao/models"
 	"github.com/G-Research/fasttrackml/pkg/ui/admin/request"
 	"github.com/G-Research/fasttrackml/tests/integration/golang/helpers"
 )
@@ -92,7 +93,7 @@ func (s *CreateNamespaceTestSuite) Test_Error() {
 		{
 			name: "CodeAlreadyExists",
 			request: &request.Namespace{
-				Code:        "default",
+				Code:        models.DefaultNamespaceCode,
 				Description: "description",
 			},
 			error: "The namespace code is already in use.",

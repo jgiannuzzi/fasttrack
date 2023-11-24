@@ -45,7 +45,7 @@ func (s *DashboardFlowTestSuite) Test_Ok() {
 		},
 		{
 			name:           "TestExplicitDefaultAndCustomNamespaces",
-			namespace1Code: "default",
+			namespace1Code: models.DefaultNamespaceCode,
 			namespace2Code: "namespace-1",
 		},
 		{
@@ -58,7 +58,7 @@ func (s *DashboardFlowTestSuite) Test_Ok() {
 	for _, tt := range tests {
 		s.Run(tt.name, func() {
 			// setup namespaces
-			for _, nsCode := range []string{"default", tt.namespace1Code, tt.namespace2Code} {
+			for _, nsCode := range []string{models.DefaultNamespaceCode, tt.namespace1Code, tt.namespace2Code} {
 				_, err := s.NamespaceFixtures.UpsertNamespace(context.Background(), &models.Namespace{
 					Code:                nsCode,
 					DefaultExperimentID: common.GetPointer(int32(0)),

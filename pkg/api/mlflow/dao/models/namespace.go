@@ -7,6 +7,8 @@ import (
 	"gorm.io/gorm"
 )
 
+const DefaultNamespaceCode = "default"
+
 // Namespace represents model to work with `namespaces` table.
 type Namespace struct {
 	ID                  uint           `gorm:"primaryKey;autoIncrement" json:"id"`

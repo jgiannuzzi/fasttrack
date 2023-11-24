@@ -18,8 +18,7 @@ import (
 )
 
 const (
-	namespaceContextKey  = "namespace"
-	defaultNamespaceCode = "default"
+	namespaceContextKey = "namespace"
 )
 
 var namespaceRegexp = regexp.MustCompile(`^/ns/([^/]+)/`)
@@ -50,15 +49,15 @@ func New(namespaceRepository repositories.NamespaceRepositoryProvider) fiber.Han
 			c.Locals(namespaceContextKey, namespace)
 			c.Path(strings.TrimPrefix(c.Path(), fmt.Sprintf("/ns/%s", namespaceCode)))
 		} else {
-			namespace, err := namespaceRepository.GetByCode(c.Context(), noCache, defaultNamespaceCode)
+			namespace, err := namespaceRepository.GetByCode(c.Context(), noCache, models.DefaultNamespaceCode)
 			if err != nil {
-				return c.JSON(api.NewInternalError("error getting namespace with code: %s", defaultNamespaceCode))
+				return c.JSON(api.NewInternalError("error getting namespace with code: %s", models.DefaultNamespaceCode))
 			}
 			if namespace == nil {
 				return c.Status(
 					http.StatusNotFound,
 				).JSON(
-					api.NewResourceDoesNotExistError("unable to find namespace with code: %s", defaultNamespaceCode),
+					api.NewResourceDoesNotExistError("unable to find namespace with code: %s", models.DefaultNamespaceCode),
 				)
 			}
 			c.Locals(namespaceContextKey, namespace)

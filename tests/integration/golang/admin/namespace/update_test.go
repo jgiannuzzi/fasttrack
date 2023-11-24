@@ -96,7 +96,7 @@ func (s *UpdateNamespaceTestSuite) Test_Error() {
 			name: "UpdateNamespaceWithDuplicatedCode",
 			ID:   "2",
 			request: &request.Namespace{
-				Code:        "default",
+				Code:        models.DefaultNamespaceCode,
 				Description: "test namespace updated",
 			},
 			response: map[string]any{

@@ -61,21 +61,21 @@ func (s *MetricFlowTestSuite) Test_Ok() {
 			name: "TestExplicitDefaultAndCustomNamespaces",
 			setup: func() (*models.Namespace, *models.Namespace) {
 				return &models.Namespace{
-						Code:                "default",
+						Code:                models.DefaultNamespaceCode,
 						DefaultExperimentID: common.GetPointer(int32(0)),
 					}, &models.Namespace{
 						Code:                "namespace-1",
 						DefaultExperimentID: common.GetPointer(int32(0)),
 					}
 			},
-			namespace1Code: "default",
+			namespace1Code: models.DefaultNamespaceCode,
 			namespace2Code: "namespace-1",
 		},
 		{
 			name: "TestImplicitDefaultAndCustomNamespaces",
 			setup: func() (*models.Namespace, *models.Namespace) {
 				return &models.Namespace{
-						Code:                "default",
+						Code:                models.DefaultNamespaceCode,
 						DefaultExperimentID: common.GetPointer(int32(0)),
 					}, &models.Namespace{
 						Code:                "namespace-1",
