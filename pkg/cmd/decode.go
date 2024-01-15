@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"slices"
 
 	"github.com/rotisserie/eris"
 	"github.com/spf13/cobra"
+	"golang.org/x/exp/maps"
 
 	"github.com/G-Research/fasttrackml/pkg/api/aim/encoding"
 )
@@ -29,12 +31,13 @@ var DecodeCmd = &cobra.Command{
 		}
 
 		decoder := encoding.NewDecoder(f)
-		fmt.Println("decoded Aim stream data:")
 		for {
 			data, err := decoder.Next()
 			if len(data) > 0 {
-				for key, value := range data {
-					fmt.Printf("%s: %#v\n", key, value)
+				keys := maps.Keys(data)
+				slices.Sort(keys)
+				for _, key := range keys {
+					fmt.Printf("%s: %#v\n", key, data[key])
 				}
 			}
 			if err != nil {
