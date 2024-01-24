@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"github.com/apache/arrow/go/v12/arrow"
-	"github.com/apache/arrow/go/v12/arrow/ipc"
+	"github.com/apache/arrow/go/v15/arrow"
+	"github.com/apache/arrow/go/v15/arrow/ipc"
 )
 
 // WriteStreamingRecord writes record into stream.
